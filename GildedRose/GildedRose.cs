@@ -29,10 +29,7 @@ public class GildedRose
                 IncreaseTheQualityIfConditionMet(item, x => item.Quality < 50);
                 IncreaseTheQualityIfConditionMet(item, x => item.SellIn < 11 && item.Quality < 50);
                 IncreaseTheQualityIfConditionMet(item, x => item.SellIn < 6 && item.Quality < 50);
-                if (--item.SellIn < 0)
-                    {
-                        item.Quality = 0;
-                    }
+                DecreaseQualityIfConditionsMet(item, x => --item.SellIn < 0);                
             }
             
             else if (item.Name == "Sulfuras, Hand of Ragnaros")
@@ -68,7 +65,6 @@ public class GildedRose
         item.Quality++;
     }
 
-
     static void LowerItemQualityIfConditionMet(Item item, Func<Item, bool> conditionMet)
     {
         if (!conditionMet(item))
@@ -78,10 +74,11 @@ public class GildedRose
         item.Quality--;
     }
 
-
-
-
-
-
-
+    static void DecreaseQualityIfConditionsMet(Item item, Func<Item, bool> conditionMet)
+    {
+        if (conditionMet(item))
+        {
+            item.Quality = 0;
+        }
+    }
 }
