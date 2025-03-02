@@ -15,7 +15,9 @@ public class GildedRose
 
     public interface IStrategy
     {
-        public void Process(Item item);
+        public virtual void Process(Item item)
+        {
+        }
     }
 
     public class AgedStrategy : IStrategy
@@ -35,7 +37,7 @@ public class GildedRose
             item.IncreaseTheQualityIfConditionMet(item.Quality < 50);
             item.IncreaseTheQualityIfConditionMet(item.SellIn < 11 && item.Quality < 50);
             item.IncreaseTheQualityIfConditionMet(item.SellIn < 6 && item.Quality < 50);
-            item.DecreaseQualityIfConditionsMet(--item.SellIn < 0);
+            item.ZeroQualityIfConditionMet(--item.SellIn < 0);
         }
     }
 
@@ -49,59 +51,34 @@ public class GildedRose
         }
     }
 
-    public class SulfurasStrategy : IStrategy
+    public class EmptyStrategy : IStrategy
     {
-        public void Process(Item item)
-        {
-        }
     }
+
 
     public Dictionary<string, IStrategy> Strategies = new()
     {
         { "Aged Brie", new AgedStrategy() },
         { "Backstage passes to a TAFKAL80ETC concert", new BackStageStrategy() },
         { "Default", new DefaultStrategy() },
-        { "Sulfuras, Hand of Ragnaros", new SulfurasStrategy()}
+        { "Sulfuras, Hand of Ragnaros", new EmptyStrategy()}
     };
-
-
 
     public void UpdateQuality()
     {
         foreach (Item item in Items)
         {
-            IStrategy chosenStrategy = Strategies.TryGetValue(item.Name, out IStrategy strategy) ? (strategy) : Strategies["Default"];
+            IStrategy chosenStrategy = Strategies.TryGetValue(item.Name, out IStrategy strategy) ? strategy : Strategies["Default"];
             chosenStrategy.Process(item);
         }
     }
 }
 
-public static class HelperMethods
+public static class QualityMethods
 {
-    public static void IncreaseTheQualityIfConditionMet(this Item item, bool conditionMet)
-    {
-        if (!conditionMet)
-        {
-            return;
-        }
-        item.Quality++;
-    }
+    public static void IncreaseTheQualityIfConditionMet(this Item item, bool conditionMet) => item.Quality += conditionMet ? 1 : 0;
 
-    public static void LowerItemQualityIfConditionMet(this Item item, bool conditionMet)
-    {
-        if (!conditionMet)
-        {
-            return;
-        }
-        item.Quality--;
-    }
+    public static void LowerItemQualityIfConditionMet(this Item item, bool conditionMet) => item.Quality -= conditionMet ? 1 : 0;
 
-    public static void DecreaseQualityIfConditionsMet(this Item item, bool conditionMet)
-    {
-        if (!conditionMet)
-        {
-            return;
-        }
-        item.Quality = 0;
-    }
+    public static void ZeroQualityIfConditionMet(this Item item, bool conditionMet) => item.Quality = conditionMet ? 0 : item.Quality;
 }
