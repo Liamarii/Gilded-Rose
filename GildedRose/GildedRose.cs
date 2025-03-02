@@ -18,45 +18,41 @@ public class GildedRose
         {
             if (item.Name == "Aged Brie")
             {
-                IncreaseTheQualityIfConditionMet(item, x => item.Quality < 50);
-                IncreaseTheQualityIfConditionMet(item, x => item.SellIn < 1 && item.Quality < 50);
-                DecreaseSellInIfConditionMet(item, x => true);
+                item.IncreaseTheQualityIfConditionMet(x => item.Quality < 50);
+                item.IncreaseTheQualityIfConditionMet(x => item.SellIn < 1 && item.Quality < 50);
+                item.DecreaseSellInValue();
             }
 
             else if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
             {
 
-                IncreaseTheQualityIfConditionMet(item, x => item.Quality < 50);
-                IncreaseTheQualityIfConditionMet(item, x => item.SellIn < 11 && item.Quality < 50);
-                IncreaseTheQualityIfConditionMet(item, x => item.SellIn < 6 && item.Quality < 50);
-                DecreaseQualityIfConditionsMet(item, x => --item.SellIn < 0);                
+                item.IncreaseTheQualityIfConditionMet(x => item.Quality < 50);
+                item.IncreaseTheQualityIfConditionMet(x => item.SellIn < 11 && item.Quality < 50);
+                item.IncreaseTheQualityIfConditionMet(x => item.SellIn < 6 && item.Quality < 50);
+                item.DecreaseQualityIfConditionsMet(x => --item.SellIn < 0);                
+            }
+
+            else if (item.Name != "Sulfuras, Hand of Ragnaros")
+            {
+                item.LowerItemQualityIfConditionMet(x => item.Quality > 0);
+                item.DecreaseSellInValue();
+                item.LowerItemQualityIfConditionMet(x => item.Quality > 0 && item.SellIn < 0);
             }
             
-            else if (item.Name == "Sulfuras, Hand of Ragnaros")
-            {
-
-            }
-
             else
             {
-                LowerItemQualityIfConditionMet(item, x => item.Quality > 0);
-                DecreaseSellInIfConditionMet(item, x => true);
-                LowerItemQualityIfConditionMet(item, x => item.Quality > 0 && item.SellIn < 0);
-            }
-            
+
+            } 
         }
     }
+}
 
-    static void DecreaseSellInIfConditionMet(Item item, Func<Item, bool> conditionMet)
-    {
-        if (!conditionMet(item))
-        {
-            return;
-        }
-        item.SellIn--;
-    }
+public static class HelperMethods
+{
 
-    static void IncreaseTheQualityIfConditionMet(Item item, Func<Item, bool> conditionMet)
+    public static void DecreaseSellInValue(this Item item) => item.SellIn--;
+
+    public static void IncreaseTheQualityIfConditionMet(this Item item, Func<Item, bool> conditionMet)
     {
         if (!conditionMet(item))
         {
@@ -65,7 +61,7 @@ public class GildedRose
         item.Quality++;
     }
 
-    static void LowerItemQualityIfConditionMet(Item item, Func<Item, bool> conditionMet)
+    public static void LowerItemQualityIfConditionMet(this Item item, Func<Item, bool> conditionMet)
     {
         if (!conditionMet(item))
         {
@@ -74,7 +70,7 @@ public class GildedRose
         item.Quality--;
     }
 
-    static void DecreaseQualityIfConditionsMet(Item item, Func<Item, bool> conditionMet)
+    public static void DecreaseQualityIfConditionsMet(this Item item, Func<Item, bool> conditionMet)
     {
         if (!conditionMet(item))
         {
