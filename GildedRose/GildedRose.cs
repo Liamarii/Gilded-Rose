@@ -20,7 +20,7 @@ public class GildedRose
             {
                 item.IncreaseTheQualityIfConditionMet(item.Quality < 50);
                 item.IncreaseTheQualityIfConditionMet(item.SellIn < 1 && item.Quality < 50);
-                item.DecreaseSellInValue();
+                item.SellIn--;
             }
 
             else if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
@@ -35,7 +35,7 @@ public class GildedRose
             else if (item.Name != "Sulfuras, Hand of Ragnaros")
             {
                 item.LowerItemQualityIfConditionMet(item.Quality > 0);
-                item.DecreaseSellInValue();
+                item.SellIn--;
                 item.LowerItemQualityIfConditionMet(item.Quality > 0 && item.SellIn < 0);
             }
             
@@ -49,9 +49,6 @@ public class GildedRose
 
 public static class HelperMethods
 {
-
-    public static void DecreaseSellInValue(this Item item) => item.SellIn--;
-
     public static void IncreaseTheQualityIfConditionMet(this Item item, bool conditionMet)
     {
         if (!conditionMet)
