@@ -73,16 +73,7 @@ public class GildedRose
             }     
             else if (item.Name == "Sulfuras, Hand of Ragnaros")
             {
-                if (item.SellIn < 0)
-                {
-                    if (item.Quality > 0)
-                    {
-                        if (item.Name == "Sulfuras, Hand of Ragnaros")
-                        {
-                            continue;
-                        }
-                    }
-                }
+
             }
             else
             {
