@@ -19,7 +19,7 @@ public class GildedRose
             {
                 IncreaseTheQualityIfLessThanFifty(item);
 
-                item.SellIn = item.SellIn - 1;
+                item.SellIn--;
                 
                 if (item.SellIn < 0)
                 {
@@ -44,7 +44,7 @@ public class GildedRose
                     }
                 }
                 
-                item.SellIn = item.SellIn - 1;
+                item.SellIn--;
                 
                 if (item.SellIn < 0)
                 {
@@ -62,7 +62,7 @@ public class GildedRose
                 LowerItemQualityWhenGreaterThanZero(item);
 
 
-                item.SellIn = item.SellIn - 1;
+                item.SellIn--;
 
 
 
