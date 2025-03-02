@@ -45,21 +45,18 @@ public class GildedRose
                     
                 }
             }
-
+            else if (item.Name == "Sulfuras, Hand of Ragnaros")
+            {
+            }
+ 
             else
             {
-                if (item.Name == "Sulfuras, Hand of Ragnaros")
+                if (item.Quality > 0)
                 {
+                    item.Quality = item.Quality - 1;
                 }
-                else
-                {
-                    if (item.Quality > 0)
-                    {
-                        item.Quality = item.Quality - 1;
-                    }
-                } 
-            }
-
+            } 
+        
 
 
             if (item.Name == "Sulfuras, Hand of Ragnaros")
@@ -69,11 +66,6 @@ public class GildedRose
             {
                 item.SellIn = item.SellIn - 1;
             }
-
-
-
-
-
 
 
             if (item.Name == "Aged Brie")
@@ -86,7 +78,7 @@ public class GildedRose
                     }
                 }
             }
-            else
+            if (item.Name != "Aged Brie")
             {
                 if (item.SellIn < 0)
                 {
