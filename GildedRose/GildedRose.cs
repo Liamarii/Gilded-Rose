@@ -70,14 +70,8 @@ public class GildedRose
     {
         foreach (Item item in Items)
         {
-            if (Strategies.ContainsKey(item.Name))
-            {
-                Strategies[item.Name].Process(item);
-            }
-            else
-            {
-                Strategies["Default"].Process(item);
-            }
+            IStrategy chosenStrategy = Strategies.TryGetValue(item.Name, out IStrategy strategy) ? (strategy) : Strategies["Default"];
+            chosenStrategy.Process(item);
         }
     }
 }
