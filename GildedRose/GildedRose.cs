@@ -70,33 +70,14 @@ public class GildedRose
     {
         foreach (Item item in Items)
         {
-            if (item.Name == "Aged Brie")
+            if (Strategies.ContainsKey(item.Name))
             {
-                item.IncreaseTheQualityIfConditionMet(item.Quality < 50);
-                item.IncreaseTheQualityIfConditionMet(item.SellIn < 1 && item.Quality < 50);
-                item.SellIn--;
+                Strategies[item.Name].Process(item);
             }
-
-            else if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
-            {
-
-                item.IncreaseTheQualityIfConditionMet(item.Quality < 50);
-                item.IncreaseTheQualityIfConditionMet(item.SellIn < 11 && item.Quality < 50);
-                item.IncreaseTheQualityIfConditionMet(item.SellIn < 6 && item.Quality < 50);
-                item.DecreaseQualityIfConditionsMet(--item.SellIn < 0);                
-            }
-
-            else if (item.Name != "Sulfuras, Hand of Ragnaros")
-            {
-                item.LowerItemQualityIfConditionMet(item.Quality > 0);
-                item.SellIn--;
-                item.LowerItemQualityIfConditionMet(item.Quality > 0 && item.SellIn < 0);
-            }
-            
             else
             {
-
-            } 
+                Strategies["Default"].Process(item);
+            }
         }
     }
 }
