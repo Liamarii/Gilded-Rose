@@ -54,21 +54,7 @@ public class GildedRose
                 item.SellIn = item.SellIn - 1;
                 if (item.SellIn < 0)
                 {
-                    if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
-                    {
-                        item.Quality = item.Quality - item.Quality;
-                    }
-                    else
-                    {
-                        if (item.Quality > 0)
-                        {
-                            if (item.Name == "Sulfuras, Hand of Ragnaros")
-                            {
-                                continue;
-                            }
-                            item.Quality = item.Quality - 1;
-                        }
-                    }
+                    item.Quality = item.Quality - item.Quality;
                 }
             }     
             else if (item.Name == "Sulfuras, Hand of Ragnaros")
