@@ -76,9 +76,10 @@ public class GildedRose
 
     static void DecreaseQualityIfConditionsMet(Item item, Func<Item, bool> conditionMet)
     {
-        if (conditionMet(item))
+        if (!conditionMet(item))
         {
-            item.Quality = 0;
+            return;
         }
+        item.Quality = 0;
     }
 }
