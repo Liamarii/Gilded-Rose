@@ -70,8 +70,7 @@ public class GildedRose
                         }
                     }
                 }
-            }
-            
+            }     
             else if (item.Name == "Sulfuras, Hand of Ragnaros")
             {
                 if (item.SellIn < 0)
@@ -93,7 +92,6 @@ public class GildedRose
                     }
                 }
             }
- 
             else
             {
                 if (item.Quality > 0)
@@ -103,21 +101,16 @@ public class GildedRose
                 item.SellIn = item.SellIn - 1;
                 if (item.SellIn < 0)
                 {
-                    if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
+                    
+                    if (item.Quality > 0)
                     {
-                        item.Quality = item.Quality - item.Quality;
-                    }
-                    else
-                    {
-                        if (item.Quality > 0)
+                        if (item.Name == "Sulfuras, Hand of Ragnaros")
                         {
-                            if (item.Name == "Sulfuras, Hand of Ragnaros")
-                            {
-                                continue;
-                            }
-                            item.Quality = item.Quality - 1;
+                            continue;
                         }
+                        item.Quality = item.Quality - 1;
                     }
+                    
                 }
             } 
         }
