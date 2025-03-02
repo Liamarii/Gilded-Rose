@@ -52,27 +52,30 @@ public class GildedRose
 
     void DecreaseSellInIfConditionMet(Item item, Func<Item, bool> func)
     {
-        if (func(item))
+        if (!func(item))
         {
-            item.SellIn--;
+            return;
         }
+        item.SellIn--;
     }
 
     void IncreaseTheQualityIfConditionMet(Item item, Func<Item, bool> func)
     {
-        if (func(item))
+        if (!func(item))
         {
-            item.Quality++;
+            return;
         }
+        item.Quality++;
     }
 
 
     void LowerItemQualityIfConditionMet(Item item, Func<Item, bool> func)
     {
-        if (func(item))
+        if (!func(item))
         {
-            item.Quality--;
+            return;
         }
+        item.Quality--;
     }
 
 
