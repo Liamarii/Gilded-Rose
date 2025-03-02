@@ -63,13 +63,10 @@ public class GildedRose
 
 
                 item.SellIn = item.SellIn - 1;
-                
-                
-                
-                if (item.SellIn < 0)
-                {
-                    LowerItemQualityWhenGreaterThanZero(item);
-                }
+
+
+
+                LowerItemQualityWhenSellInLessThanZero(item);
             }
             
         }
@@ -95,6 +92,13 @@ public class GildedRose
         }
     }
 
+    void LowerItemQualityWhenSellInLessThanZero(Item item)
+    {
+        if (item.SellIn < 0)
+        {
+            LowerItemQualityWhenGreaterThanZero(item);
+        }
+    }
 
 
 
