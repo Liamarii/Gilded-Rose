@@ -20,14 +20,14 @@ public class GildedRose
                 IncreaseTheQualityIfLessThanFifty(item);
 
                 item.SellIn = item.SellIn - 1;
+                
                 if (item.SellIn < 0)
                 {
-                    if (item.Quality < 50)
-                    {
-                        item.Quality = item.Quality + 1;
-                    }
+                    IncreaseTheQualityIfLessThanFifty(item);
                 }
             }
+
+
             else if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
             {
                 if (item.Quality < 50)
@@ -48,11 +48,14 @@ public class GildedRose
                 {
                     item.Quality = item.Quality - item.Quality;
                 }
-            }     
+            }
+            
             else if (item.Name == "Sulfuras, Hand of Ragnaros")
             {
 
             }
+
+
             else
             {
                 if (item.Quality > 0)
@@ -67,7 +70,8 @@ public class GildedRose
                         item.Quality = item.Quality - 1;
                     }     
                 }
-            } 
+            }
+            
         }
     }
 
@@ -83,10 +87,7 @@ public class GildedRose
         }
     }
 
-
-
-
-
+    void 
 
 
 
