@@ -18,18 +18,17 @@ public class GildedRose
         {
             if (item.Name == "Aged Brie")
             {
-                IncreaseTheQualityIfLessThan(item, 50);
-                IncreaseTheQualityIfSellInLessThan(item, 1);
-                DecreaseSellIn(item, x => true);
+                IncreaseTheQualityIfConditionMet(item, x => item.Quality < 50);
+                IncreaseTheQualityIfConditionMet(item, x => item.SellIn < 1 && item.Quality < 50);
+                DecreaseSellInIfConditionMet(item, x => true);
             }
 
             else if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
             {
 
-                    IncreaseTheQualityIfLessThan(item, 50);
-                    IncreaseTheQualityIfSellInLessThan(item, 11);
-                    IncreaseTheQualityIfSellInLessThan(item, 6);
-
+                IncreaseTheQualityIfConditionMet(item, x => item.Quality < 50);
+                IncreaseTheQualityIfConditionMet(item, x => item.SellIn < 11 && item.Quality < 50);
+                IncreaseTheQualityIfConditionMet(item, x => item.SellIn < 6 && item.Quality < 50);
                 if (--item.SellIn < 0)
                     {
                         item.Quality = 0;
@@ -43,15 +42,15 @@ public class GildedRose
 
             else
             {
-                LowerItemQualityWhenGreaterThanZero(item);
-                DecreaseSellIn(item, x => true);
-                LowerItemQualityWhenSellInLessThanZero(item);
+                LowerItemQualityIfConditionMet(item, x => item.Quality > 0);
+                DecreaseSellInIfConditionMet(item, x => true);
+                LowerItemQualityIfConditionMet(item, x => item.Quality > 0 && item.SellIn < 0);
             }
             
         }
     }
 
-    void DecreaseSellIn(Item item, Func<Item, bool> func)
+    void DecreaseSellInIfConditionMet(Item item, Func<Item, bool> func)
     {
         if (func(item))
         {
@@ -59,39 +58,22 @@ public class GildedRose
         }
     }
 
-    void IncreaseTheQualityIfSellInLessThan(Item item, int sellInMin)
+    void IncreaseTheQualityIfConditionMet(Item item, Func<Item, bool> func)
     {
-        if (item.SellIn < sellInMin)
+        if (func(item))
         {
-            IncreaseTheQualityIfLessThan(item, 50);
-        }
-    }
-
-    void IncreaseTheQualityIfLessThan(Item item, int qualityLimit)
-    {
-        if (item.Quality < qualityLimit)
-        {
-            item.Quality = item.Quality + 1;
-        }
-    }
-
-    void LowerItemQualityWhenGreaterThanZero(Item item)
-    {
-        if (item.Quality > 0)
-        {
-            item.Quality = item.Quality - 1;
-        }
-    }
-
-    void LowerItemQualityWhenSellInLessThanZero(Item item)
-    {
-        if (item.SellIn < 0)
-        {
-            LowerItemQualityWhenGreaterThanZero(item);
+            item.Quality++;
         }
     }
 
 
+    void LowerItemQualityIfConditionMet(Item item, Func<Item, bool> func)
+    {
+        if (func(item))
+        {
+            item.Quality--;
+        }
+    }
 
 
 
