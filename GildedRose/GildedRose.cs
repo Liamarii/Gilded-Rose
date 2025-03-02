@@ -17,10 +17,8 @@ public class GildedRose
         {
             if (item.Name == "Aged Brie")
             {
-                if (item.Quality < 50)
-                {
-                    item.Quality = item.Quality + 1;
-                }
+                IncreaseTheQualityIfLessThanFifty(item);
+
                 item.SellIn = item.SellIn - 1;
                 if (item.SellIn < 0)
                 {
@@ -34,22 +32,16 @@ public class GildedRose
             {
                 if (item.Quality < 50)
                 {
-                    item.Quality = item.Quality + 1;
+                    IncreaseTheQualityIfLessThanFifty(item);
 
                     if (item.SellIn < 11)
                     {
-                        if (item.Quality < 50)
-                        {
-                            item.Quality = item.Quality + 1;
-                        }
+                        IncreaseTheQualityIfLessThanFifty(item);
                     }
                     if (item.SellIn < 6)
                     {
-                        if (item.Quality < 50)
-                        {
-                            item.Quality = item.Quality + 1;
-                        }
-                    }    
+                        IncreaseTheQualityIfLessThanFifty(item);
+                    }
                 }
                 item.SellIn = item.SellIn - 1;
                 if (item.SellIn < 0)
@@ -78,4 +70,32 @@ public class GildedRose
             } 
         }
     }
+
+
+
+
+
+    void IncreaseTheQualityIfLessThanFifty(Item item)
+    {
+        if (item.Quality < 50)
+        {
+            item.Quality = item.Quality + 1;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
