@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace GildedRoseKata;
 
@@ -17,30 +18,21 @@ public class GildedRose
         {
             if (item.Name == "Aged Brie")
             {
-                IncreaseTheQualityIfLessThanFifty(item);          
-                if (item.SellIn-- < 1)
-                {
-                    IncreaseTheQualityIfLessThanFifty(item);
-                }
+                IncreaseTheQualityIfLessThan(item, 50);
+                IncreaseTheQualityIfSellInLessThan(item, 1);
+                DecreaseSellIn(item, x => true);
             }
-
 
             else if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
             {
 
-                    IncreaseTheQualityIfLessThanFifty(item);
+                    IncreaseTheQualityIfLessThan(item, 50);
+                    IncreaseTheQualityIfSellInLessThan(item, 11);
+                    IncreaseTheQualityIfSellInLessThan(item, 6);
 
-                    if (item.SellIn < 11)
+                if (--item.SellIn < 0)
                     {
-                        IncreaseTheQualityIfLessThanFifty(item);
-                    }
-                    if (item.SellIn < 6)
-                    {
-                        IncreaseTheQualityIfLessThanFifty(item);
-                    }            
-                    if (--item.SellIn < 0)
-                    {
-                        item.Quality--;
+                        item.Quality = 0;
                     }
             }
             
@@ -52,20 +44,32 @@ public class GildedRose
             else
             {
                 LowerItemQualityWhenGreaterThanZero(item);
-                item.SellIn--;
+                DecreaseSellIn(item, x => true);
                 LowerItemQualityWhenSellInLessThanZero(item);
             }
             
         }
     }
 
-
-
-
-
-    void IncreaseTheQualityIfLessThanFifty(Item item)
+    void DecreaseSellIn(Item item, Func<Item, bool> func)
     {
-        if (item.Quality < 50)
+        if (func(item))
+        {
+            item.SellIn--;
+        }
+    }
+
+    void IncreaseTheQualityIfSellInLessThan(Item item, int sellInMin)
+    {
+        if (item.SellIn < sellInMin)
+        {
+            IncreaseTheQualityIfLessThan(item, 50);
+        }
+    }
+
+    void IncreaseTheQualityIfLessThan(Item item, int qualityLimit)
+    {
+        if (item.Quality < qualityLimit)
         {
             item.Quality = item.Quality + 1;
         }
