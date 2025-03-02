@@ -17,8 +17,7 @@ public class GildedRose
         {
             if (item.Name == "Aged Brie")
             {
-                IncreaseTheQualityIfLessThanFifty(item);
-                
+                IncreaseTheQualityIfLessThanFifty(item);          
                 if (item.SellIn-- < 1)
                 {
                     IncreaseTheQualityIfLessThanFifty(item);
@@ -38,15 +37,11 @@ public class GildedRose
                     if (item.SellIn < 6)
                     {
                         IncreaseTheQualityIfLessThanFifty(item);
+                    }            
+                    if (--item.SellIn < 0)
+                    {
+                        item.Quality--;
                     }
-                    
-                 
-                    item.SellIn--;
-                
-                if (item.SellIn < 0)
-                {
-                    item.Quality = item.Quality - item.Quality;
-                }
             }
             
             else if (item.Name == "Sulfuras, Hand of Ragnaros")
@@ -57,12 +52,7 @@ public class GildedRose
             else
             {
                 LowerItemQualityWhenGreaterThanZero(item);
-
-
                 item.SellIn--;
-
-
-
                 LowerItemQualityWhenSellInLessThanZero(item);
             }
             
