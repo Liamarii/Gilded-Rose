@@ -50,18 +50,18 @@ public class GildedRose
         }
     }
 
-    void DecreaseSellInIfConditionMet(Item item, Func<Item, bool> func)
+    static void DecreaseSellInIfConditionMet(Item item, Func<Item, bool> conditionMet)
     {
-        if (!func(item))
+        if (!conditionMet(item))
         {
             return;
         }
         item.SellIn--;
     }
 
-    void IncreaseTheQualityIfConditionMet(Item item, Func<Item, bool> func)
+    static void IncreaseTheQualityIfConditionMet(Item item, Func<Item, bool> conditionMet)
     {
-        if (!func(item))
+        if (!conditionMet(item))
         {
             return;
         }
@@ -69,9 +69,9 @@ public class GildedRose
     }
 
 
-    void LowerItemQualityIfConditionMet(Item item, Func<Item, bool> func)
+    static void LowerItemQualityIfConditionMet(Item item, Func<Item, bool> conditionMet)
     {
-        if (!func(item))
+        if (!conditionMet(item))
         {
             return;
         }
