@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace GildedRoseKata;
 
@@ -11,7 +10,6 @@ public class GildedRose
     {
         this.Items = Items;
     }
-
 
     public interface IStrategy
     {
@@ -54,7 +52,6 @@ public class GildedRose
     public class EmptyStrategy : IStrategy
     {
     }
-
 
     public Dictionary<string, IStrategy> Strategies = new()
     {
